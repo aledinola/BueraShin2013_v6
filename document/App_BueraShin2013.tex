@@ -1,0 +1,252 @@
+%\input{tcilatex}
+%\input{tcilatex}
+%\input{tcilatex}
+
+
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{hyperref}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=Latex.dll}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{LastRevised=Tuesday, June 10, 2025 18:50:48}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+
+\geometry{margin=1in}
+
+%\input{tcilatex}
+
+\begin{document}
+
+\title{Buera \& Shin (2013) -- Financial Friction and the Persistence of
+History: A Quantitative Exploration}
+\author{Alessandro Di Nola and Robert Kirkby}
+\date{June 2025}
+\maketitle
+
+\section*{Introduction}
+
+Brief description of (incomplete) replication of Buera and Shin (2013). I
+denote the exogenous shock $z$, which they call $e$, and I also call $\gamma 
+$ what they call $\sigma $. I use $\mu $ as the agent distribution (while
+they had it as the distribution of just the exogenous process, they used $G$
+for the agent distribution).
+
+The model is about solving a transition path in an infinite horizon model.
+Here I just write the steady-state problem.
+
+\section*{Value Function Formulation}
+
+Buera and Shin (2013) present the household problem as a sequence problem.
+We rewrite it as a value function problem:
+
+\begin{equation}
+V(a,z)=\max_{c,a^{\prime }}\left\{ \frac{c^{1-\gamma }}{1-\gamma }+\beta 
+\mathbb{E}[V(a^{\prime },z^{\prime })|z]\right\}  \label{eq:bellman}
+\end{equation}%
+subject to 
+\begin{equation*}
+c+a^{\prime }\leq \max \{w,\pi (a,z|r,w)\}+(1+r)a
+\end{equation*}%
+and%
+\begin{equation*}
+a^{\prime }\geq 0
+\end{equation*}%
+where
+
+\begin{equation*}
+\pi (a,z|r,w)=\max_{l,k}\left\{ f(z,k,l)-wl-(r+\delta )k\right\} \text{
+subject to }k\leq \lambda a
+\end{equation*}%
+and%
+\begin{equation*}
+f(z,k,l)=z(k^{\alpha }l^{1-\alpha })^{1-\nu }
+\end{equation*}
+
+This reduces to a one-state dynamic programming problem since the profit
+part can be solved analytically. Solving the VFI problem delivers the policy
+functions $a^{\prime }(a,z)$, $e=e(a,z)$, $e\in \left\{ 0,1\right\} $, where
+optimal occupation choice is 
+\begin{equation*}
+e(a,z)=\left\{ 
+\begin{array}{cl}
+1 & \text{if }\pi (a,z|r,w)>w \\ 
+0 & \text{otherwise.}%
+\end{array}%
+\right.
+\end{equation*}
+
+\section*{Analytical Solution}
+
+\begin{equation*}
+k_1 = \left[ \left( \frac{1}{r + \delta} \alpha(1 - \nu)z \right)^{1 - (1 -
+\alpha)(1 - \nu)} \left( \frac{1}{w}(1 - \alpha)(1 - \nu)z \right)^{(1 -
+\alpha)(1 - \nu)} \right]^{1/\nu}
+\end{equation*}
+\begin{equation*}
+k^* = \min\{k_1, \lambda a\}
+\end{equation*}
+\begin{equation*}
+l^* = \left[ \frac{1}{w}(1 - \alpha)(1 - \nu)z(k^*)^{\alpha(1 - \nu)} \right]%
+^{\frac{1}{1 - (1 - \alpha)(1 - \nu)}}
+\end{equation*}
+\begin{equation*}
+\pi(a, z|r, w) = z(k^*)^\alpha (l^*)^{1 - \alpha})^{1 - \nu} - wl^* - (r +
+\delta)k^*
+\end{equation*}
+
+\section*{General Equilibrium Conditions}
+
+There are two GE prices: interest rate $r$ and wage rate $w$.
+
+Labor market clearing: 
+\begin{equation*}
+\int l^{\ast }(a,z)\cdot \mathbb{I}_{\left\{ e(a,z)=1\right\} }\,d\mu
+(a,z)=\int \mathbb{I}_{\left\{ e(a,z)=0\right\} }\,d\mu (a,z)
+\end{equation*}
+
+Capital market clearing: 
+\begin{equation*}
+\int k^{\ast }(a,z)\cdot \mathbb{I}_{\left\{ e(a,z)=1\right\} }\,d\mu
+(a,z)=\int a\,d\mu (a,z)
+\end{equation*}
+
+Implied by Walras law:%
+\begin{equation*}
+\int c(a,z)d\mu (a,z)+\int a\,d\mu (a,z)=\int \left[ \mathbb{I}_{\left\{
+e(a,z)=0\right\} }\cdot w+\mathbb{I}_{\left\{ e(a,z)=1\right\} }\cdot \pi
+(a,z)\right] d\mu (a,z)+(1+r)\int a\,d\mu (a,z)
+\end{equation*}%
+which simplifies to%
+\begin{eqnarray*}
+C &=&w\int \mathbb{I}_{\left\{ e(a,z)=0\right\} }\,d\mu (a,z)+\int \mathbb{I}%
+_{\left\{ e(a,z)=1\right\} }\pi (a,z)d\mu (a,z)+rK \\
+&=&wL+Y-wL-\left( r+\delta \right) K+rK \\
+&=&Y-\delta K
+\end{eqnarray*}
+
+\section*{Calibration}
+
+\noindent \textbf{External parameters}. $\gamma =1.5$, $\delta =0.06$, $%
+\alpha =0.33$, $\lambda =\infty $
+
+\noindent \textbf{Internal calibration}. Set $v$ (span of control), $\eta
+,\psi $ (dispersion and persistence of entrepreneurial ability) and $\beta $
+(discount rate) to match:
+
+\begin{itemize}
+\item Top 10\% of employment ($v$, $\eta $)
+
+\item Top 5\% of earnings ($v$, $\eta $)
+
+\item Entrepreneurs exit rate ($\psi $)
+
+\item Real interest rate ($\beta $)
+\end{itemize}
+
+\noindent \textbf{Stochastic process}. Entrepreneurial ability $z$ follows a 
+\textit{truncated} Pareto distribution with density function 
+\begin{equation*}
+p(z)=\left\{ 
+\begin{array}{c}
+\eta z^{-\left( \eta +1\right) }\text{ if }z\geq 1 \\ 
+0\text{ \ \ \ \ \ \ otherwise}%
+\end{array}%
+\right.
+\end{equation*}%
+Each period, an individual keeps his old ability $z$ with probability $\psi $%
+. With complementary probability $1-\psi $ he draws a new ability $z^{\prime
+}$ from $p(z^{\prime })$ given above. Clearly, the parameter $\psi $ governs
+the persistence of the stochastic process for ability, whereas $\eta $
+governs the dispersion. Given these assumption for the stochastic process of
+entrepreneurial ability, the continuation value in (\ref{eq:bellman}) can be
+written more explicitely as follows:%
+\begin{equation*}
+E\left[ V(a^{\prime },z^{\prime })|z\right] =\psi V(a^{\prime },z)+\left(
+1-\psi \right) \int V(a^{\prime },z^{\prime })p(z^{\prime })dz^{\prime }.
+\end{equation*}%
+In order to re-use the general routines for value function iteration and
+distribution iteration, it is convenient to \textit{recast the stochastic
+process described above as a Markov chain}. First, we assume we have already
+discretized the Pareto distribution as $z\in \left\{ z_{1},z_{2},\ldots
+,z_{n}\right\} $ and $p(z)=\left[ p_{1},\ldots ,p_{n}\right] $ (a $n\times 1$
+\textit{column} vector such that $\sum_{i}p_{i}=1$). Then, we observe that
+if the current ability shock is $z_{i}$, then next-period ability shock will
+be $z_{i}$ with prob $\psi +(1-\psi )p_{i}$ and $z_{j}$ with prob $(1-\psi
+)p_{j}$, for $j\neq i$. It is easy to check that $\sum \pi (z,z^{\prime
+})=\psi +(1-\psi )p_{i}+\sum_{j\neq i}(1-\psi )p_{j}=1$, i.e. each row $i$
+of the Markov chain sums to one, for all $i=1,\ldots ,n$. Therefore the $%
+n\times n$ Markov chain for the shock $\left( z,z^{\prime }\right) $ can be
+written as%
+\begin{equation*}
+\Pi _{n\times n}=\psi \mathbf{I}_{n}+(1-\psi )\mathbf{1}_{n}p^{T}
+\end{equation*}%
+or, more in detail, as%
+\begin{equation*}
+\Pi _{n\times n}=\psi 
+\begin{bmatrix}
+1 & 0 & \ldots & 0 \\ 
+0 & 1 & \ldots & 0 \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+0 & 0 & 0 & 1%
+\end{bmatrix}%
++(1-\psi )%
+\begin{bmatrix}
+1 \\ 
+1 \\ 
+\vdots \\ 
+1%
+\end{bmatrix}%
+\begin{bmatrix}
+p_{1} & p_{2} & \ldots & p_{n}%
+\end{bmatrix}%
+\end{equation*}%
+where $\mathbf{I}_{n}$ is the $n\times n$ identity matrix and $\mathbf{1}%
+_{n} $ is an $n\times 1$ \textit{column} vector of 1s.
+
+Note: For the replication I used the files \texttt{support.dat} and \texttt{%
+dist.dat} kindly provided by the authors. If I replicate the discretization
+as described in their paper, I get values for $z $ and $p(z) $ which are
+quite different from the ones used in the paper.
+
+\section*{Appendix: Profit Maximization Derivations}
+
+\begin{equation*}
+\pi(a, z|r, w) = \max_{l, k} \left\{ z(k^\alpha l^{1 - \alpha})^{1 - \nu} -
+wl - (r + \delta)k \right\}, \quad \text{s.t. } k \leq \lambda a
+\end{equation*}
+
+\paragraph{First Order Conditions (Unconstrained):}
+
+\begin{equation*}
+\frac{\partial \pi}{\partial l} = (1 - \alpha)(1 - \nu) z k^{\alpha(1 -
+\nu)} l^{(1 - \alpha)(1 - \nu) - 1} - w = 0
+\end{equation*}
+\begin{equation*}
+\frac{\partial \pi}{\partial k} = \alpha(1 - \nu) z k^{\alpha(1 - \nu) - 1}
+l^{(1 - \alpha)(1 - \nu)} - (r + \delta) = 0
+\end{equation*}
+
+Solving gives: 
+\begin{equation*}
+l^* = \left[ \frac{1}{w} (1 - \alpha)(1 - \nu) z k^{\alpha(1 - \nu)} \right]%
+^{\frac{1}{1 - (1 - \alpha)(1 - \nu)}}
+\end{equation*}
+\begin{equation*}
+k_1 = \left[ \left( \frac{1}{r + \delta} \alpha(1 - \nu)z \right)^{1 - (1 -
+\alpha)(1 - \nu)} \left( \frac{1}{w}(1 - \alpha)(1 - \nu)z \right)^{(1 -
+\alpha)(1 - \nu)} \right]^{1/\nu}
+\end{equation*}
+\begin{equation*}
+k^* = \min\{k_1, \lambda a\}
+\end{equation*}
+
+\end{document}

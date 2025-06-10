@@ -1,0 +1,24 @@
+MODEL PARAMETERS 
+beta         = 0.904000 
+eta          = 4.150000 
+psi          = 0.894000 
+span_control = 0.790000 
+alpha        = 0.330000 
+delta        = 0.060000 
+lambda       = Inf 
+TARGETED MOMENTS 
+Top 10 Employment = 0.657677 
+Top 5 Earnings    = 0.364686 
+Entre exit rate   = 0.100355 
+Interest rate     = 0.047600 
+GE cond 1   = 0.001193 
+GE cond 2   = -0.000165 
+OTHER MOMENTS 
+Share of entre    = 0.053257 
+K/Y ratio         = 2.422862 
+ExtFin/Y ratio    = 1.715077 
+K    = 0.745267 
+L    = 0.946578 
+Y    = 0.307598 
+C    = 0.262853 
+w    = 0.172000 
