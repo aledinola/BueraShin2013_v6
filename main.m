@@ -28,13 +28,13 @@ do_replication = 0; % Flag 0/1 to replicate Figure 2 of BS 2013. This
                     % requires repeatedly solving the s.s. for different
                     % lambdas
 % Options for value function iteration:
-vfoptions                  = struct();
-vfoptions.verbose          = 1;
-vfoptions.lowmemory        = 0;
-vfoptions.separableF       = 0; % NEW
-vfoptions.tolerance        = 1e-9;
-vfoptions.howards          = 80;
-vfoptions.maxhowards       = 500;
+vfoptions                   = struct();
+vfoptions.verbose           = 1;
+vfoptions.lowmemory         = 0;
+vfoptions.separableReturnFn = 1; % NEW
+vfoptions.tolerance         = 1e-9;
+vfoptions.howards           = 80;
+vfoptions.maxhowards        = 500;
 % Options for stationary distribution:
 simoptions                 = struct();
 % Options for GE loop:
@@ -121,10 +121,19 @@ pi_z = pi_z./sum(pi_z,2);
 DiscountFactorParamNames={'beta'};
 % Required inputs:
 % (aprime,a,z) in this order, than any parameter
-ReturnFn=@(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon) ...
-    f_ReturnFn(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon);
 
-ReturnFnParamNames = [];
+% --- ALL IN ONE
+%ReturnFn=@(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon) ...
+%    f_ReturnFn(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon);
+
+% --- SPLIT IN TWO BLOCKS
+ReturnFnParamNames = struct();
+ReturnFn.R1=@(a,z,w,r,lambda,delta,alpha,upsilon) f_ReturnFn_step1(a,z,w,r,lambda,delta,alpha,upsilon);
+ReturnFnParamNames.R1 = {'w','r','lambda','delta','alpha','upsilon'};
+
+ReturnFn.R2=@(aprime,cash_on_hand,crra) f_ReturnFn_step2(aprime,cash_on_hand,crra);
+ReturnFnParamNames.R2 = {'crra'};
+
 
 %% Create some FnsToEvaluate
 FnsToEvaluate.A=@(aprime,a,z) a; % assets

@@ -1,4 +1,4 @@
-function F=f_ReturnFn_step2(aprime,cash_on_hand,crra,w,r,lambda,delta,alpha,upsilon)
+function F=f_ReturnFn_step2(aprime,cash_on_hand,crra)
 % Second step of Return Matrix
 % INPUTS 
 % aprime:       (n_a,1)   vector, future endogenous state

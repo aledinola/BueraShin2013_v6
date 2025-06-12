@@ -1,4 +1,4 @@
-function cash_on_hand=f_ReturnFn_step1(a,z,crra,w,r,lambda,delta,alpha,upsilon)
+function cash_on_hand=f_ReturnFn_step1(a,z,w,r,lambda,delta,alpha,upsilon)
 % First step of Return Matrix
 % INPUTS 
 % a: (n_a,1) vector, endogenous state

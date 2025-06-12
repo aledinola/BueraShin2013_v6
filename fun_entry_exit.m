@@ -20,6 +20,19 @@ if ~isequal(size(pi_z),[n_z,n_z])
     error('Size of pi_z NOT correct!')
 end 
 
+if isgpuarray(StationaryDist)
+    StationaryDist = gather(StationaryDist);
+end
+if isgpuarray(pi_z)
+    pi_z = gather(pi_z);
+end
+if isgpuarray(pol_e)
+    pol_e = gather(pol_e);
+end
+if isgpuarray(pol_aprime)
+    pol_aprime = gather(pol_aprime);
+end
+
 % Compute T(o,o')=mass of individuals who go from occupation o in the current 
 % period to occupation o' in the next period
 
