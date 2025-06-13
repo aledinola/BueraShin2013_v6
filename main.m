@@ -123,17 +123,19 @@ DiscountFactorParamNames={'beta'};
 % (aprime,a,z) in this order, than any parameter
 
 % --- ALL IN ONE
-%ReturnFn=@(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon) ...
-%    f_ReturnFn(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon);
+if vfoptions.separableReturnFn==0
+    ReturnFn=@(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon) ...
+        f_ReturnFn(aprime,a,z,crra,w,r,lambda,delta,alpha,upsilon);
 
-% --- SPLIT IN TWO BLOCKS
-ReturnFnParamNames = struct();
-ReturnFn.R1=@(a,z,w,r,lambda,delta,alpha,upsilon) f_ReturnFn_step1(a,z,w,r,lambda,delta,alpha,upsilon);
-ReturnFnParamNames.R1 = {'w','r','lambda','delta','alpha','upsilon'};
+else
+    % --- SPLIT IN TWO BLOCKS
+    ReturnFnParamNames = struct();
+    ReturnFn.R1=@(a,z,w,r,lambda,delta,alpha,upsilon) f_ReturnFn_step1(a,z,w,r,lambda,delta,alpha,upsilon);
+    %ReturnFnParamNames.R1 = {'w','r','lambda','delta','alpha','upsilon'};
 
-ReturnFn.R2=@(aprime,cash_on_hand,crra) f_ReturnFn_step2(aprime,cash_on_hand,crra);
-ReturnFnParamNames.R2 = {'crra'};
-
+    ReturnFn.R2=@(aprime,cash_on_hand,crra) f_ReturnFn_step2(aprime,cash_on_hand,crra);
+    %ReturnFnParamNames.R2 = {'crra'};
+end
 
 %% Create some FnsToEvaluate
 FnsToEvaluate.A=@(aprime,a,z) a; % assets
@@ -169,7 +171,7 @@ else
 end
 
 tic
-[Outputs,GE_cond,Policy_init,StationaryDist_init,AggVars_init,ValuesOnGrid] = BueraShin_Fn(do_GE,Params,n_d,n_a,n_z,pi_z,d_grid,a_grid,z_grid,ReturnFn,FnsToEvaluate,GeneralEqmEqns,DiscountFactorParamNames,GEPriceParamNames,heteroagentoptions,simoptions,vfoptions,ReturnFnParamNames);
+[Outputs,GE_cond,Policy_init,StationaryDist_init,AggVars_init,ValuesOnGrid] = BueraShin_Fn(do_GE,Params,n_d,n_a,n_z,pi_z,d_grid,a_grid,z_grid,ReturnFn,FnsToEvaluate,GeneralEqmEqns,DiscountFactorParamNames,GEPriceParamNames,heteroagentoptions,simoptions,vfoptions);
 time_BueraShin_Fn=toc;
 
 disp(' ')
