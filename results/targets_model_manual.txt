@@ -9,7 +9,7 @@ lambda       = Inf
 TARGETED MOMENTS 
 Top 10 Employment = 0.657677 
 Top 5 Earnings    = 0.364686 
-Entre exit rate   = 0.100355 
+Entre exit rate   = NaN 
 Interest rate     = 0.047600 
 GE cond 1   = 0.001193 
 GE cond 2   = -0.000165 

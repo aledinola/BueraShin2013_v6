@@ -14,7 +14,7 @@ if do_GE==1
     %% Compute eqm objects
     Params.r=p_eqm.r;
     Params.w=p_eqm.w;
-    [~,Policy]=ValueFnIter_Case1(n_d,n_a,n_z,d_grid,a_grid,z_grid,pi_z,ReturnFn,Params,DiscountFactorParamNames,ReturnFnParamNames,vfoptions);
+    [~,Policy]=ValueFnIter_Case1(n_d,n_a,n_z,d_grid,a_grid,z_grid,pi_z,ReturnFn,Params,DiscountFactorParamNames,[],vfoptions);
     StationaryDist=StationaryDist_Case1(Policy,n_d,n_a,n_z,pi_z,simoptions);
     AggVars=EvalFnOnAgentDist_AggVars_Case1(StationaryDist, Policy, FnsToEvaluate, Params, [], n_d, n_a, n_z, d_grid, a_grid, z_grid, [], simoptions);
     ValuesOnGrid=EvalFnOnAgentDist_ValuesOnGrid_Case1(Policy, FnsToEvaluate, Params, [], n_d, n_a, n_z, d_grid, a_grid, z_grid, [], simoptions);
@@ -37,29 +37,27 @@ GE_cond(2) = AggVars.L.Mean - (1-AggVars.entrepreneur.Mean);
 %% Compute some model moments 
 
 pol_e      = gather(ValuesOnGrid.entrepreneur); % dim: (a,z)
-pol_aprime = gather(squeeze(Policy(1,:,:,:))); % dim: (a,z)
+pol_aprime = gather(squeeze(Policy(1,:,:))); % dim: (a,z)
 
 % Compute exit rate
-%[exit_E_to_W,entry_W_to_E] = fun_entry_exit(StationaryDist,pi_z,pol_e,pol_aprime,n_a,n_z);
-exit_E_to_W = NaN;
-entry_W_to_E = NaN;
+[exit_E_to_W,entry_W_to_E] = fun_entry_exit(StationaryDist,pi_z,pol_e,pol_aprime,n_a,n_z);
 
 % --- Targets using toolkit commands
 
 % More Functions to Evaluate
 FnsToEvaluate2 = FnsToEvaluate;
 % Entrepreneurial output (zero if worker)
-FnsToEvaluate2.Y=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_output(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon); 
+FnsToEvaluate2.Y=@(aprime,a,z,w,r,lambda,delta,alpha,upsilon) f_output(aprime,a,z,w,r,lambda,delta,alpha,upsilon); 
 % Enternal finance (zero if worker)
-FnsToEvaluate2.extfin=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_extfin(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon); 
+FnsToEvaluate2.extfin=@(aprime,a,z,w,r,lambda,delta,alpha,upsilon) f_extfin(aprime,a,z,w,r,lambda,delta,alpha,upsilon); 
 % Earnings 
-FnsToEvaluate2.earnings=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_earnings(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon); 
+FnsToEvaluate2.earnings=@(aprime,a,z,w,r,lambda,delta,alpha,upsilon) f_earnings(aprime,a,z,w,r,lambda,delta,alpha,upsilon); 
 % Consumption
-FnsToEvaluate2.C = @(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_Consumption(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon);
+FnsToEvaluate2.C = @(aprime,a,z,w,r,lambda,delta,alpha,upsilon) f_Consumption(aprime,a,z,w,r,lambda,delta,alpha,upsilon);
 
 % Restrictions for entre (some moments are conditional on entre=1)
-simoptions.conditionalrestrictions.ENT = @(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) ...
-    f_entrepreneur(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon);
+simoptions.conditionalrestrictions.ENT = @(aprime,a,z,w,r,lambda,delta,alpha,upsilon) ...
+    f_entrepreneur(aprime,a,z,w,r,lambda,delta,alpha,upsilon);
 % Other options for AllStats
 simoptions.whichstats=zeros(1,7);
 simoptions.whichstats(1)=1; %mean

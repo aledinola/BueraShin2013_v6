@@ -1,0 +1,8 @@
+separableReturnFn = 0
+
+VFI = 2.10 seconds
+
+separableReturnFn = 1
+
+VFI = 1.4 seconds 
+

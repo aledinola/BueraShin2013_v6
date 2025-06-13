@@ -1,8 +1,8 @@
-function c=f_Consumption(aprime,a,z,w,r,lambda,delta,alpha,upsilon)
+function c=f_Consumption(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon)
 
-profit = solve_entre(a,z,w,r,lambda,delta,alpha,upsilon);
+profit = solve_entre(a,z1,w,r,lambda,delta,alpha,upsilon);
 
 % Budget constraint
-c=max(w,profit)+(1+r)*a-aprime;
+c=max(w*z2,profit)+(1+r)*a-aprime;
 
 end %end function

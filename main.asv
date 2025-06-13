@@ -122,9 +122,9 @@ FnsToEvaluate.A=@(aprime,a,z1,z2) a; % assets
 % Capital demand by entre (zero if worker)
 FnsToEvaluate.K=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_capitaldemand(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon); 
 % Labor demand by entre (zero if worker)
-FnsToEvaluate.L=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_labordemand(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon); 
+FnsToEvaluate.L=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_labordemand(aprime,a,z,w,r,lambda,delta,alpha,upsilon); 
 % 1 if entrepreneur, 0 if worker
-FnsToEvaluate.entrepreneur=@(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon) f_entrepreneur(aprime,a,z1,z2,w,r,lambda,delta,alpha,upsilon);
+FnsToEvaluate.entrepreneur=@(aprime,a,z,w,r,lambda,delta,alpha,upsilon) f_entrepreneur(aprime,a,z,w,r,lambda,delta,alpha,upsilon);
 
 %% Set up general equilibrium
 % heteroagentoptions.fminalgo=5;
