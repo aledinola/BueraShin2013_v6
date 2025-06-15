@@ -86,10 +86,10 @@ pi_z_vec = importdata(fullfile(InpFolder,'dist.dat'));
 pi_z1 = Params.psi*eye(n_z1)+(1-Params.psi)*ones(n_z1,1)*pi_z_vec';
 pi_z1 = pi_z1./sum(pi_z1,2);
 
-z2_grid = [1,1,1]';
-pi_z2 = [0.2, 0.4,0.4;
-         0.2, 0.4,0.4;
-         0.2, 0.4,0.4];
+z2_grid = 1;%[1,1,1]';
+pi_z2 = 1;%[0.2, 0.4,0.4;
+         %0.2, 0.4,0.4;
+         %0.2, 0.4,0.4];
 
 z_grid = [z1_grid;z2_grid];
 pi_z = kron(pi_z2,pi_z1);
